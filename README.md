@@ -11,29 +11,26 @@ In this study, the temperature changes continuously along the plate.
 
 The wall temperature is defined as
 
-𝑇
+𝑇 
 𝑤
 𝑎
 𝑙
 𝑙
 (
-𝑠
+s
 )
 =
 500
 +
 200
-𝑠
-T
-wall
+x
 	​
 
-(s)=500+200s
+(s)=500+200x
 
 where
 
-𝑠
-s = normalized position along the plate (0 → 1)
+x = normalized position along the plate (0 → 1)
 
 Temperature distribution
 Plate Position	Temperature
@@ -43,24 +40,29 @@ Trailing Edge	700 K
 
 This represents a heated plate with increasing temperature downstream, similar to many thermal engineering and aerospace applications.
 
-🧠 Physics Model
-Parameter	Value
+🧠 Physics Model Parameter	Value
+
 Solver	RANS
-Turbulence Model	SST 
-𝑘
-−
-𝜔
-k−ω
+
+Turbulence Model  𝑘−𝜔 SST 
+
 Flow Type	Compressible
+
 Mach Number	0.03059
+
 Freestream Temperature	293.15 K
+
 Freestream Pressure	101325 Pa
+
 🧩 How the Python Wrapper Works
 
-Instead of defining wall temperature in the .cfg file, the Python wrapper updates the boundary condition every time step.
+Instead of defining wall temperature in the .cfg file,
+the Python wrapper updates the boundary condition every time step.
 
-s = float(iVertex) / float(nVertex_CHTMarker)
-WallTemp = 500.0 + 200.0 * s
+s = float(iVertex)  /  float(nVertex_CHTMarker)
+
+WallTemp = 500.0 + 200.0 * x
+
 SU2Driver.SetMarkerCustomTemperature(CHTMarkerID, iVertex, WallTemp)
 
 This means every node on the plate receives a different temperature value depending on its location.
@@ -103,10 +105,11 @@ hypersonic vehicle heating
 conjugate heat transfer studies
 
 🛠 Tools Used
-Tool	Purpose
+
 SU2	CFD Solver
 Python	Boundary condition control
 ParaView	Visualization
+
 👨‍💻 Author
 
 Harsha
